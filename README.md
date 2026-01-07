@@ -1,5 +1,10 @@
 # Reaper Dev MCP Server
 
+[![CI](https://github.com/Conceptual-Machines/reaper-dev-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/Conceptual-Machines/reaper-dev-mcp/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
+
 MCP (Model Context Protocol) server providing **reference documentation** for REAPER development, ReaScript API, JSFX programming, and ReaWrap API.
 
 ## Purpose

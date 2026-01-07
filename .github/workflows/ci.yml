@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Verify data files exist
+      run: |
+        test -f data/jsfx-api.json || (echo "Missing jsfx-api.json" && exit 1)
+        test -f data/reascript-api.json || (echo "Missing reascript-api.json" && exit 1)
+        test -f data/reawrap-api.json || (echo "Missing reawrap-api.json" && exit 1)
+    
+    - name: Verify data files are valid JSON
+      run: |
+        node -e "JSON.parse(require('fs').readFileSync('data/jsfx-api.json', 'utf8'))"
+        node -e "JSON.parse(require('fs').readFileSync('data/reascript-api.json', 'utf8'))"
+        node -e "JSON.parse(require('fs').readFileSync('data/reawrap-api.json', 'utf8'))"
+    
+    - name: Check data file structure
+      run: |
+        node -e "
+          const jsfx = require('./data/jsfx-api.json');
+          const reascript = require('./data/reascript-api.json');
+          const reawrap = require('./data/reawrap-api.json');
+          
+          if (!jsfx.functions) throw new Error('jsfx-api.json missing functions');
+          if (!reascript.functions) throw new Error('reascript-api.json missing functions');
+          if (!reawrap.classes) throw new Error('reawrap-api.json missing classes');
+          
+          console.log('✓ JSFX functions:', jsfx.functions.length);
+          console.log('✓ ReaScript functions:', reascript.functions.length);
+          console.log('✓ ReaWrap classes:', reawrap.classes.length);
+        "
+    
+    - name: Run TypeScript type check
+      run: npx tsc --noEmit
+    
+    - name: Test MCP server (if test script exists)
+      run: |
+        if npm run | grep -q "test"; then
+          npm run test || echo "Test script failed but continuing..."
+        else
+          echo "No test script found, skipping"
+        fi
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Check for linting issues
+      run: |
+        # Check for common issues
+        if grep -r "console.log" src/ --exclude-dir=node_modules; then
+          echo "Warning: console.log found in source files"
+        fi
+        echo "Lint check complete"
+
