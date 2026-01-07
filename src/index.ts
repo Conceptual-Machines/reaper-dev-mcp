@@ -315,13 +315,42 @@ class ReaperDevMCPServer {
   }
 
   async run() {
+    // Check if running in stdio mode (shouldn't happen, but handle gracefully)
+    if (process.stdin.isTTY === false && !process.env.FORCE_HTTP) {
+      console.error("Error: This server only supports HTTP/SSE transport, not stdio.");
+      console.error("Please configure your MCP client to use:");
+      console.error('  "type": "sse",');
+      console.error('  "url": "http://localhost:3000"');
+      process.exit(1);
+    }
+    
     const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
     
     const transport = new StreamableHTTPServerTransport();
     await this.server.connect(transport);
     
     const httpServer = http.createServer(async (req, res) => {
-      await transport.handleRequest(req, res);
+      try {
+        await transport.handleRequest(req, res);
+      } catch (error: any) {
+        // Handle errors gracefully, especially for concurrent connection attempts
+        if (!res.headersSent) {
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: error.message }));
+        }
+      }
+    });
+    
+    // Handle port already in use gracefully
+    httpServer.on("error", (error: NodeJS.ErrnoException) => {
+      if (error.code === "EADDRINUSE") {
+        console.error(`Port ${port} is already in use. Server may already be running.`);
+        console.error(`If you want to use a different port, set PORT environment variable.`);
+        // Don't exit - allow the existing server to handle requests
+      } else {
+        console.error("Server error:", error);
+        process.exit(1);
+      }
     });
     
     httpServer.listen(port, () => {
