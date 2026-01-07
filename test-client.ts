@@ -2,10 +2,11 @@
 
 /**
  * Simple MCP test client to verify the reaper-dev-mcp server works correctly.
+ * Connects via HTTP/SSE transport.
  */
 
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { spawn } from "child_process";
 import * as path from "path";
 import { fileURLToPath } from "url";
@@ -13,21 +14,41 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const SERVER_URL = process.env.MCP_SERVER_URL || "http://localhost:3000";
+const SERVER_PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+
 async function testMCP() {
   console.log("🚀 Starting MCP test client...\n");
+  console.log(`Connecting to server at ${SERVER_URL}\n`);
 
-  // Spawn the MCP server
+  // Try to start the MCP server (ignore if already running)
   const serverPath = path.join(__dirname, "dist", "index.js");
-  const serverProcess = spawn("node", [serverPath], {
-    stdio: ["pipe", "pipe", "inherit"],
-  });
+  let serverProcess: ReturnType<typeof spawn> | null = null;
+  
+  try {
+    serverProcess = spawn("node", [serverPath], {
+      env: { ...process.env, PORT: SERVER_PORT.toString() },
+      stdio: "pipe", // Don't inherit to avoid noise
+    });
+    
+    serverProcess.stderr?.on("data", (data) => {
+      // Only show server startup messages, ignore port-in-use errors
+      const msg = data.toString();
+      if (msg.includes("running on http")) {
+        process.stderr.write(data);
+      }
+    });
+    
+    // Wait for server to start (or fail gracefully if port in use)
+    console.log("Waiting for server to start...");
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  } catch (error) {
+    // Server might already be running, that's okay
+    console.log("Server may already be running, continuing...\n");
+  }
 
   // Create transport and client
-  const transport = new StdioClientTransport({
-    command: "node",
-    args: [serverPath],
-    env: process.env,
-  });
+  const transport = new StreamableHTTPClientTransport(new URL(SERVER_URL));
 
   const client = new Client(
     {
@@ -143,7 +164,9 @@ async function testMCP() {
     process.exit(1);
   } finally {
     await client.close();
-    serverProcess.kill();
+    if (serverProcess) {
+      serverProcess.kill();
+    }
   }
 }
 
@@ -151,4 +174,3 @@ testMCP().catch((error) => {
   console.error("Fatal error:", error);
   process.exit(1);
 });
-
