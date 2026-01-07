@@ -23,33 +23,53 @@ This server provides static reference documentation that serves as a lookup refe
 ### Prerequisites
 
 - Node.js (v18 or higher)
-- Python 3.13
-- npm
+- npm or npx
 
-### Step 1: Clone and Install
+### Option 1: Install via npx (Recommended)
+
+You can use the MCP server directly without cloning:
 
 ```bash
-git clone <repository-url>
+# For Cursor or Claude Desktop, use this path in your MCP config:
+npx -y @conceptual-machines/reaper-dev-mcp
+```
+
+Or if published to npm, configure your MCP client with:
+
+```json
+{
+  "mcpServers": {
+    "reaper-dev": {
+      "command": "npx",
+      "args": ["-y", "@conceptual-machines/reaper-dev-mcp"]
+    }
+  }
+}
+```
+
+### Option 2: Install from Git
+
+```bash
+git clone https://github.com/Conceptual-Machines/reaper-dev-mcp.git
 cd reaper-dev-mcp
 npm install
-python3.13 -m pip install beautifulsoup4
-```
-
-### Step 2: Initialize API Data
-
-The MCP server requires API data files. These should be included in the repository, but if they're missing, you can regenerate them:
-
-```bash
-npm run scrape
-```
-
-### Step 3: Build the Server
-
-```bash
 npm run build
 ```
 
-### Step 4: Configure MCP Client
+Then use the local path in your MCP config:
+
+```json
+{
+  "mcpServers": {
+    "reaper-dev": {
+      "command": "node",
+      "args": ["/absolute/path/to/reaper-dev-mcp/dist/index.js"]
+    }
+  }
+}
+```
+
+### Configure MCP Client
 
 #### For Cursor IDE
 

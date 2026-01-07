@@ -1,9 +1,12 @@
 {
-  "name": "reaper-dev-mcp",
+  "name": "@conceptual-machines/reaper-dev-mcp",
   "version": "1.0.0",
   "description": "MCP server providing reference documentation for REAPER development, ReaScript API, JSFX programming, and ReaWrap API",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "reaper-dev-mcp": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -23,6 +26,13 @@
   ],
   "author": "Nomad Monad",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Conceptual-Machines/reaper-dev-mcp.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "cheerio": "^1.0.0-rc.12"
