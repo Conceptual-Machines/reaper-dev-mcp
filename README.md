@@ -69,53 +69,47 @@ npm install
 npm run build
 ```
 
-Then use the local path in your MCP config:
+Then start the server:
 
-```json
-{
-  "mcpServers": {
-    "reaper-dev": {
-      "command": "node",
-      "args": ["/absolute/path/to/reaper-dev-mcp/dist/index.js"]
-    }
-  }
-}
+```bash
+npm start
 ```
+
+Or with a custom port:
+
+```bash
+PORT=8080 npm start
+```
+
+Then configure your MCP client to use `http://localhost:3000` (or your custom port).
 
 ### Configure MCP Client
 
 #### For Cursor IDE
 
-1. Open Cursor Settings (Cmd/Ctrl + ,)
-2. Search for "MCP" or navigate to MCP settings
-3. Add the following configuration:
+1. **Start the MCP server** (in a terminal):
+   ```bash
+   npx -y reaper-dev-mcp
+   ```
+   The server will run on `http://localhost:3000` by default.
+
+2. Open Cursor Settings (Cmd/Ctrl + ,)
+3. Search for "MCP" or navigate to MCP settings
+4. Add the following configuration:
 
 ```json
 {
   "mcpServers": {
     "reaper-dev": {
-      "command": "node",
-      "args": ["/absolute/path/to/reaper-dev-mcp/dist/index.js"]
+      "url": "http://localhost:3000"
     }
   }
 }
 ```
 
-Replace `/absolute/path/to/reaper-dev-mcp` with the actual path to this directory.
+5. Restart Cursor
 
-**Example on macOS:**
-```json
-{
-  "mcpServers": {
-    "reaper-dev": {
-      "command": "node",
-      "args": ["/Users/YourUsername/Code/personal/ReaScript/reaper-dev-mcp/dist/index.js"]
-    }
-  }
-}
-```
-
-4. Restart Cursor
+**Note:** The server must be running before Cursor starts, or Cursor won't be able to connect.
 
 #### For Claude Desktop
 
