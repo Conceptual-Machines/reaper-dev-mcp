@@ -70,41 +70,21 @@ Then configure your MCP client to use `http://localhost:3000` (or your custom po
 
 Claude Code CLI uses **stdio transport** (direct process spawning) for MCP servers.
 
-1. Locate your Claude Code config file:
-   - **macOS/Linux**: `~/.config/claude-code/mcp.json` or `~/.cursor/mcp.json`
-   - **Windows**: `%APPDATA%\Claude Code\mcp.json`
+Simply run this command to add the server:
 
-2. Add the MCP server configuration using one of these methods:
-
-**Option A: Using installed package (after `npm install -g reaper-dev-mcp`)**
-```json
-{
-  "mcpServers": {
-    "reaper-dev": {
-      "command": "npx",
-      "args": ["-y", "reaper-dev-mcp"]
-    }
-  }
-}
+```bash
+claude mcp add --transport stdio --scope user reaper-dev -- npx -y reaper-dev-mcp
 ```
 
-**Option B: Using local repository**
-```json
-{
-  "mcpServers": {
-    "reaper-dev": {
-      "command": "node",
-      "args": [
-        "/absolute/path/to/reaper-dev-mcp/dist/index.js"
-      ]
-    }
-  }
-}
+This will configure the server globally for all your projects. Verify it's working:
+
+```bash
+claude mcp list
 ```
 
-3. Restart Claude Code CLI
+You should see `reaper-dev: npx -y reaper-dev-mcp - ✓ Connected`
 
-**Note:** No separate server process needed - Claude Code will spawn the server automatically.
+**Note:** The server automatically detects stdio mode when invoked by Claude Code. No separate server process is needed.
 
 #### For Cursor IDE
 

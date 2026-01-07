@@ -317,7 +317,7 @@ class ReaperDevMCPServer {
 
   async run() {
     // Auto-detect transport mode based on how the process is invoked
-    const isStdioMode = process.stdin.isTTY === false && !process.env.FORCE_HTTP;
+    const isStdioMode = !process.stdin.isTTY && !process.env.FORCE_HTTP;
 
     if (isStdioMode) {
       // stdio transport for Claude Code CLI
