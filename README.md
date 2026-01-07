@@ -20,86 +20,80 @@ This server provides static reference documentation that serves as a lookup refe
 
 ## Installation
 
-### Prerequisites
+### Quick Start
 
-- Node.js (v18 or higher)
-- npm or npx
+Choose your IDE and follow the instructions:
 
-### Option 1: Install via npx (Recommended)
+- **[Claude Code CLI](#claude-code-cli)** - Recommended, easiest setup
+- **[Cursor IDE](#cursor-ide)** - Works with stdio or HTTP
+- **[Claude Desktop](#claude-desktop)** - Requires HTTP server
 
-1. **Start the MCP server** in a terminal:
+### Claude Code CLI
 
-```bash
-npx -y reaper-dev-mcp
-```
+**Prerequisites:** Node.js v18+
 
-The server will start on `http://localhost:3000` by default. To use a custom port:
-
-```bash
-PORT=8080 npx -y reaper-dev-mcp
-```
-
-2. **Configure your MCP client** (see configuration sections below) to connect to the running server.
-
-### Option 2: Install from Git
-
-```bash
-git clone https://github.com/Conceptual-Machines/reaper-dev-mcp.git
-cd reaper-dev-mcp
-npm install
-npm run build
-```
-
-Then start the server:
-
-```bash
-npm start
-```
-
-Or with a custom port:
-
-```bash
-PORT=8080 npm start
-```
-
-Then configure your MCP client to use `http://localhost:3000` (or your custom port).
-
-### Configure MCP Client
-
-#### For Claude Code CLI
-
-Claude Code CLI uses **stdio transport** (direct process spawning) for MCP servers.
-
-Simply run this command to add the server:
+**Installation (one command):**
 
 ```bash
 claude mcp add --transport stdio --scope user reaper-dev -- npx -y reaper-dev-mcp
 ```
 
-This will configure the server globally for all your projects. Verify it's working:
+**Verify it's working:**
 
 ```bash
 claude mcp list
 ```
 
-You should see `reaper-dev: npx -y reaper-dev-mcp - ✓ Connected`
+You should see: `reaper-dev: npx -y reaper-dev-mcp - ✓ Connected`
 
-**Note:** The server automatically detects stdio mode when invoked by Claude Code. No separate server process is needed.
+**That's it!** The server will automatically start when Claude Code needs it. Restart your Claude Code session to use the tools.
 
-#### For Cursor IDE
+---
 
-Cursor can use either **HTTP/SSE** or **stdio** transport.
+### Cursor IDE
 
-**Option A: HTTP/SSE Transport (requires running server)**
+Cursor supports both stdio and HTTP transports. **Stdio is recommended** (no background process needed).
 
-1. **Start the MCP server** in a terminal:
+#### Option A: stdio Transport (Recommended)
+
+**Prerequisites:** Node.js v18+
+
+1. Open Cursor settings:
+   - macOS/Linux: `~/.cursor/mcp.json`
+   - Windows: `%APPDATA%\Cursor\mcp.json`
+
+2. Add this configuration:
+
+```json
+{
+  "mcpServers": {
+    "reaper-dev": {
+      "command": "npx",
+      "args": ["-y", "reaper-dev-mcp"]
+    }
+  }
+}
+```
+
+3. Restart Cursor
+
+**That's it!** Cursor will spawn the server automatically when needed.
+
+#### Option B: HTTP/SSE Transport
+
+If you prefer HTTP (or stdio doesn't work), use this method:
+
+1. **Start the server** in a terminal (keep it running):
    ```bash
    npx -y reaper-dev-mcp
    ```
 
-2. Open Cursor Settings (Cmd/Ctrl + ,)
-3. Search for "MCP" or navigate to MCP settings
-4. Add the following configuration:
+   The server will start on `http://localhost:3000`. For a custom port:
+   ```bash
+   PORT=8080 npx -y reaper-dev-mcp
+   ```
+
+2. Open Cursor settings and add:
 
 ```json
 {
@@ -112,29 +106,36 @@ Cursor can use either **HTTP/SSE** or **stdio** transport.
 }
 ```
 
-5. Restart Cursor
+3. Restart Cursor
 
 **Note:** The server must be running before Cursor starts.
 
-**Option B: stdio Transport (no separate server needed)**
+---
 
-Use the same stdio configuration as Claude Code CLI above.
+### Claude Desktop
 
-#### For Claude Desktop
+Claude Desktop requires HTTP/SSE transport.
 
-Claude Desktop uses **HTTP/SSE transport** (requires running server).
+**Prerequisites:** Node.js v18+
 
-1. **Start the MCP server** in a terminal:
+1. **Start the server** in a terminal (keep it running):
    ```bash
    npx -y reaper-dev-mcp
    ```
 
-2. Locate your Claude Desktop config file:
+   The server will start on `http://localhost:3000`. For a custom port:
+   ```bash
+   PORT=8080 npx -y reaper-dev-mcp
+   ```
+
+2. **Configure Claude Desktop:**
+
+   Locate your config file:
    - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
    - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
    - **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
-3. Add the MCP server configuration:
+3. Add this configuration:
 
 ```json
 {
@@ -149,17 +150,30 @@ Claude Desktop uses **HTTP/SSE transport** (requires running server).
 
 4. Restart Claude Desktop
 
-**Note:** The server must be running before Claude Desktop starts, or it won't be able to connect.
+**Note:** The server must be running before Claude Desktop starts.
 
-### Step 5: Verify Installation
+---
 
-Run the test client to verify everything works:
+### Development Setup
 
+If you want to modify the server or contribute:
+
+```bash
+git clone https://github.com/Conceptual-Machines/reaper-dev-mcp.git
+cd reaper-dev-mcp
+npm install
+npm run build
+```
+
+Run in development mode:
+```bash
+npm run dev
+```
+
+Run tests:
 ```bash
 npm run test
 ```
-
-You should see all tests passing.
 
 ## MCP Tools
 
@@ -231,19 +245,6 @@ The MCP server provides access to:
 - **ReaScript API**: 2,282 functions organized by language (C, EEL2, Lua, Python)
 - **ReaWrap API**: 14 classes with 736 methods
 
-## Development
-
-### Running in Development Mode
-
-```bash
-npm run dev
-```
-
-### Testing
-
-```bash
-npm run test
-```
 
 ## Success Criteria
 
