@@ -27,38 +27,19 @@ This server provides static reference documentation that serves as a lookup refe
 
 ### Option 1: Install via npx (Recommended)
 
-You can use the MCP server directly without cloning:
-
-```bash
-# For Cursor or Claude Desktop, use this path in your MCP config:
-npx -y @conceptual-machines/reaper-dev-mcp
-```
-
-Or if published to npm, configure your MCP client with:
-
-```json
-{
-  "mcpServers": {
-    "reaper-dev": {
-      "url": "http://localhost:3000"
-    }
-  }
-}
-```
-
-**Note:** The server must be running before connecting. Start it with:
+1. **Start the MCP server** in a terminal:
 
 ```bash
 npx -y reaper-dev-mcp
 ```
 
-Or set a custom port:
+The server will start on `http://localhost:3000` by default. To use a custom port:
 
 ```bash
 PORT=8080 npx -y reaper-dev-mcp
 ```
 
-Then configure the URL accordingly in your MCP client settings.
+2. **Configure your MCP client** (see configuration sections below) to connect to the running server.
 
 ### Option 2: Install from Git
 
@@ -87,11 +68,7 @@ Then configure your MCP client to use `http://localhost:3000` (or your custom po
 
 #### For Cursor IDE
 
-1. **Start the MCP server** (in a terminal):
-   ```bash
-   npx -y reaper-dev-mcp
-   ```
-   The server will run on `http://localhost:3000` by default.
+1. **Start the MCP server** in a terminal (see Option 1 above)
 
 2. Open Cursor Settings (Cmd/Ctrl + ,)
 3. Search for "MCP" or navigate to MCP settings
@@ -113,11 +90,7 @@ Then configure your MCP client to use `http://localhost:3000` (or your custom po
 
 #### For Claude Desktop
 
-1. **Start the MCP server** (in a terminal):
-   ```bash
-   npx -y reaper-dev-mcp
-   ```
-   The server will run on `http://localhost:3000` by default.
+1. **Start the MCP server** in a terminal (see Option 1 above)
 
 2. Locate your Claude Desktop config file:
    - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
