@@ -1,5 +1,5 @@
 {
-  "name": "@conceptual-machines/reaper-dev-mcp",
+  "name": "reaper-dev-mcp",
   "version": "1.0.0",
   "description": "MCP server providing reference documentation for REAPER development, ReaScript API, JSFX programming, and ReaWrap API",
   "type": "module",

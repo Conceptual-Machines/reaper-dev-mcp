@@ -41,7 +41,7 @@ Or if published to npm, configure your MCP client with:
   "mcpServers": {
     "reaper-dev": {
       "command": "npx",
-      "args": ["-y", "@conceptual-machines/reaper-dev-mcp"]
+      "args": ["-y", "reaper-dev-mcp"]
     }
   }
 }
