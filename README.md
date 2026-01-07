@@ -66,9 +66,56 @@ Then configure your MCP client to use `http://localhost:3000` (or your custom po
 
 ### Configure MCP Client
 
+#### For Claude Code CLI
+
+Claude Code CLI uses **stdio transport** (direct process spawning) for MCP servers.
+
+1. Locate your Claude Code config file:
+   - **macOS/Linux**: `~/.config/claude-code/mcp.json` or `~/.cursor/mcp.json`
+   - **Windows**: `%APPDATA%\Claude Code\mcp.json`
+
+2. Add the MCP server configuration using one of these methods:
+
+**Option A: Using installed package (after `npm install -g reaper-dev-mcp`)**
+```json
+{
+  "mcpServers": {
+    "reaper-dev": {
+      "command": "npx",
+      "args": ["-y", "reaper-dev-mcp"]
+    }
+  }
+}
+```
+
+**Option B: Using local repository**
+```json
+{
+  "mcpServers": {
+    "reaper-dev": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/reaper-dev-mcp/dist/index.js"
+      ]
+    }
+  }
+}
+```
+
+3. Restart Claude Code CLI
+
+**Note:** No separate server process needed - Claude Code will spawn the server automatically.
+
 #### For Cursor IDE
 
-1. **Start the MCP server** in a terminal (see Option 1 above)
+Cursor can use either **HTTP/SSE** or **stdio** transport.
+
+**Option A: HTTP/SSE Transport (requires running server)**
+
+1. **Start the MCP server** in a terminal:
+   ```bash
+   npx -y reaper-dev-mcp
+   ```
 
 2. Open Cursor Settings (Cmd/Ctrl + ,)
 3. Search for "MCP" or navigate to MCP settings
@@ -78,6 +125,7 @@ Then configure your MCP client to use `http://localhost:3000` (or your custom po
 {
   "mcpServers": {
     "reaper-dev": {
+      "type": "sse",
       "url": "http://localhost:3000"
     }
   }
@@ -86,11 +134,20 @@ Then configure your MCP client to use `http://localhost:3000` (or your custom po
 
 5. Restart Cursor
 
-**Note:** The server must be running before Cursor starts, or Cursor won't be able to connect.
+**Note:** The server must be running before Cursor starts.
+
+**Option B: stdio Transport (no separate server needed)**
+
+Use the same stdio configuration as Claude Code CLI above.
 
 #### For Claude Desktop
 
-1. **Start the MCP server** in a terminal (see Option 1 above)
+Claude Desktop uses **HTTP/SSE transport** (requires running server).
+
+1. **Start the MCP server** in a terminal:
+   ```bash
+   npx -y reaper-dev-mcp
+   ```
 
 2. Locate your Claude Desktop config file:
    - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
@@ -103,6 +160,7 @@ Then configure your MCP client to use `http://localhost:3000` (or your custom po
 {
   "mcpServers": {
     "reaper-dev": {
+      "type": "sse",
       "url": "http://localhost:3000"
     }
   }
