@@ -126,8 +126,8 @@ export class DataLoader {
     return data.functions.filter(
       (f: ReaScriptFunction) =>
         f.name.toLowerCase().includes(lowerQuery) ||
-        f.description.toLowerCase().includes(lowerQuery) ||
-        f.namespace.toLowerCase().includes(lowerQuery)
+        (f.description && f.description.toLowerCase().includes(lowerQuery)) ||
+        (f.namespace && f.namespace.toLowerCase().includes(lowerQuery))
     );
   }
 
