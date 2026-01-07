@@ -40,12 +40,25 @@ Or if published to npm, configure your MCP client with:
 {
   "mcpServers": {
     "reaper-dev": {
-      "command": "npx",
-      "args": ["-y", "reaper-dev-mcp"]
+      "url": "http://localhost:3000"
     }
   }
 }
 ```
+
+**Note:** The server must be running before connecting. Start it with:
+
+```bash
+npx -y reaper-dev-mcp
+```
+
+Or set a custom port:
+
+```bash
+PORT=8080 npx -y reaper-dev-mcp
+```
+
+Then configure the URL accordingly in your MCP client settings.
 
 ### Option 2: Install from Git
 
@@ -106,27 +119,32 @@ Replace `/absolute/path/to/reaper-dev-mcp` with the actual path to this director
 
 #### For Claude Desktop
 
-1. Locate your Claude Desktop config file:
+1. **Start the MCP server** (in a terminal):
+   ```bash
+   npx -y reaper-dev-mcp
+   ```
+   The server will run on `http://localhost:3000` by default.
+
+2. Locate your Claude Desktop config file:
    - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
    - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
    - **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
-2. Add the MCP server configuration:
+3. Add the MCP server configuration:
 
 ```json
 {
   "mcpServers": {
     "reaper-dev": {
-      "command": "node",
-      "args": ["/absolute/path/to/reaper-dev-mcp/dist/index.js"]
+      "url": "http://localhost:3000"
     }
   }
 }
 ```
 
-Replace `/absolute/path/to/reaper-dev-mcp` with the actual path to this directory.
+4. Restart Claude Desktop
 
-3. Restart Claude Desktop
+**Note:** The server must be running before Claude Desktop starts, or it won't be able to connect.
 
 ### Step 5: Verify Installation
 

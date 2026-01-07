@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import * as http from "http";
 import {
   CallToolRequestSchema,
   ListResourcesRequestSchema,
@@ -314,9 +315,18 @@ class ReaperDevMCPServer {
   }
 
   async run() {
-    const transport = new StdioServerTransport();
+    const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+    
+    const transport = new StreamableHTTPServerTransport();
     await this.server.connect(transport);
-    console.error("Reaper Dev MCP server running on stdio");
+    
+    const httpServer = http.createServer(async (req, res) => {
+      await transport.handleRequest(req, res);
+    });
+    
+    httpServer.listen(port, () => {
+      console.error(`Reaper Dev MCP server running on http://localhost:${port}`);
+    });
   }
 }
 
