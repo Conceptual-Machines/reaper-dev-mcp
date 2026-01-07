@@ -1,0 +1,933 @@
+{
+  "functions": [
+    {
+      "name": "mdct",
+      "category": "unknown",
+      "description": "start_index, size), imdct(start_index, size)Example:mdct(0, 512);Performs a modified DCT (or inverse in the case of imdct()) on the data",
+      "signature": "mdct(0, 512)"
+    },
+    {
+      "name": "fft",
+      "category": "unknown",
+      "description": "start_index, size), ifft(start_index, size)fft_real(start_index, size), ifft_real(start_index, size)fft_permute(index,size), fft_ipermute(index,size)Example:buffer=0;",
+      "signature": "fft(buffer, 512)"
+    },
+    {
+      "name": "fft_permute",
+      "category": "unknown",
+      "description": "index,size), fft_ipermute(index,size)Example:buffer=0;",
+      "signature": "fft_permute(buffer, 512)"
+    },
+    {
+      "name": "fft_ipermute",
+      "category": "unknown",
+      "description": "index,size)Example:buffer=0;",
+      "signature": "fft_ipermute(buffer, 512)"
+    },
+    {
+      "name": "ifft",
+      "category": "unknown",
+      "description": "start_index, size)fft_real(start_index, size), ifft_real(start_index, size)fft_permute(index,size), fft_ipermute(index,size)Example:buffer=0;",
+      "signature": "ifft(buffer, 512)"
+    },
+    {
+      "name": "sliderchange",
+      "category": "unknown",
+      "description": "mask or sliderX)Example:sliderchange(slider4);orsliderchange(2 ^ sliderindex);The sliderchange() function provides a facility for you to notify REAPER/JS",
+      "signature": "sliderchange(slider4)"
+    },
+    {
+      "name": "slider_automate",
+      "category": "unknown",
+      "description": "mask or sliderX[, end_touch])-- end_touch requires REAPER 6.74+Example:slider_automate(slider4);orslider_automate(2 ^ sliderindex);The slider_automate() function provides a facility for you to notify REAPER/JS",
+      "signature": "slider_automate(slider4)"
+    },
+    {
+      "name": "mem_set_values",
+      "category": "unknown",
+      "description": "- REAPER 5.28+Writes values to memory starting at buf from variables specified. Slower than regular memory writes for less than a few variables, faster for more than a few. Undefined behavior if used with more than 32767 variables.mem_get_values(buf, ...)-- REAPER 5.28+Reads values from memory starting at buf into variables specified. Slower than regular memory reads for less than a few variables, faster for more than a few. Undefined behavior if used with more than 32767 variables.mem_multiply_sum(buf1,buf2,length)-- REAPER 6.74+Sums the products of length items of buf1 and buf2. If buf1 is exactly -1, then sums the squares of items in buf2. If buf1 is exactly -2 then sums the absolute values of buf2. If buf1 is exactly -3 then sums the values of buf2. If buf1 is another negative value, the result is undefined.mem_insert_shuffle(buf,len,value)-- REAPER 6.74+Shuffles buf to the right by one element, inserting value as buf[0], and returning the previous buf[len-1].__memtop()Returns the total number of memory slots available to the plug-in.",
+      "signature": "mem_set_values(buf, ...)"
+    },
+    {
+      "name": "mem_get_values",
+      "category": "unknown",
+      "description": "- REAPER 5.28+Reads values from memory starting at buf into variables specified. Slower than regular memory reads for less than a few variables, faster for more than a few. Undefined behavior if used with more than 32767 variables.mem_multiply_sum(buf1,buf2,length)-- REAPER 6.74+Sums the products of length items of buf1 and buf2. If buf1 is exactly -1, then sums the squares of items in buf2. If buf1 is exactly -2 then sums the absolute values of buf2. If buf1 is exactly -3 then sums the values of buf2. If buf1 is another negative value, the result is undefined.mem_insert_shuffle(buf,len,value)-- REAPER 6.74+Shuffles buf to the right by one element, inserting value as buf[0], and returning the previous buf[len-1].__memtop()Returns the total number of memory slots available to the plug-in.",
+      "signature": "mem_get_values(buf, ...)"
+    },
+    {
+      "name": "mem_multiply_sum",
+      "category": "unknown",
+      "description": "- REAPER 6.74+Sums the products of length items of buf1 and buf2. If buf1 is exactly -1, then sums the squares of items in buf2. If buf1 is exactly -2 then sums the absolute values of buf2. If buf1 is exactly -3 then sums the values of buf2. If buf1 is another negative value, the result is undefined.mem_insert_shuffle(buf,len,value)-- REAPER 6.74+Shuffles buf to the right by one element, inserting value as buf[0], and returning the previous buf[len-1].__memtop()Returns the total number of memory slots available to the plug-in.",
+      "signature": "mem_multiply_sum(buf1,buf2,length)"
+    },
+    {
+      "name": "mem_insert_shuffle",
+      "category": "unknown",
+      "description": "- REAPER 6.74+Shuffles buf to the right by one element, inserting value as buf[0], and returning the previous buf[len-1].__memtop()Returns the total number of memory slots available to the plug-in.",
+      "signature": "mem_insert_shuffle(buf,len,value)"
+    },
+    {
+      "name": "slider_show",
+      "category": "unknown",
+      "description": "- REAPER 6.30+Queries (if value is omitted) or sets the visibility of one or more sliders. If value is -1, toggles visibility, value of 0 hides, 1 shows. Returns the mask of requested visible sliders.",
+      "signature": "slider_show(mask or sliderX[, value])"
+    },
+    {
+      "name": "export_buffer_to_project",
+      "category": "unknown",
+      "description": "-REAPER 6.05+Writes the audio contents of buffer(s) to an audio file and inserts into project. This may only be called from the @gfx section, it should not be called from any other context.buffer: a pointer to the first sample of the first channel of audio datalength_samples: number of samples (or sample-pairs etc) of audio data to writench: number of channels to writesrate: samplerate to writetrack_index: track index to insert media(optional) flags: bitmask:4: stretch/loop item to fit time selection8: tempo match to project 1x16: tempo match to project 0.5x32: tempo match to project 2x64: do not preserve pitch when matching tempo256: force loop of item regardless of preference of default item looping0x10000: move edit cursor to end of project0x20000: set tempo from tempo parameter(optional) tempo: ignored if flags does not have 0x20000 set, otherwise sets the project tempo to this value at the insertion point(optional) planar_pitch: if 0 or not specified, then multichannel exports are interleaved samples. If nonzero, then each channel is a separate buffer, and buffer[] is the first channel, (buffer+planar_pitch)[] is the second channel, (buffer+planar_pitch*2)[] is the third channel, etc.-- REAPER 6.30+",
+      "signature": "export_buffer_to_project(buffer,length_samples,nch,srate,track_index[,flags,tempo,planar_pitch])"
+    },
+    {
+      "name": "get_host_placement",
+      "category": "unknown",
+      "description": "- REAPER 6.74+Returns track index, or -1 for master track, or -2 for hardware output FX. chain_pos will be position in chain. flags will have 1 set if takeFX, 2 set if record input, 4 set if in inactive project.",
+      "signature": "get_host_placement([chain_pos, flags])"
+    },
+    {
+      "name": "sin",
+      "category": "unknown",
+      "description": "- returns the Sine of the angle specified (specified in radians -- to convert from degrees to radians, multiply by $pi/180, or 0.017453)cos(angle)-- returns the Cosine of the angle specified (specified in radians).tan(angle)-- returns the Tangent of the angle specified (specified in radians).asin(x)-- returns the Arc Sine of the value specified (return value is in radians).acos(x)-- returns the Arc Cosine of the value specified (return value is in radians).atan(x)-- returns the Arc Tangent of the value specified (return value is in radians).atan2(x,y)-- returns the Arc Tangent of x divided by y (return value is in radians).sqr(x)-- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "sin(angle)"
+    },
+    {
+      "name": "cos",
+      "category": "unknown",
+      "description": "- returns the Cosine of the angle specified (specified in radians).tan(angle)-- returns the Tangent of the angle specified (specified in radians).asin(x)-- returns the Arc Sine of the value specified (return value is in radians).acos(x)-- returns the Arc Cosine of the value specified (return value is in radians).atan(x)-- returns the Arc Tangent of the value specified (return value is in radians).atan2(x,y)-- returns the Arc Tangent of x divided by y (return value is in radians).sqr(x)-- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "cos(angle)"
+    },
+    {
+      "name": "tan",
+      "category": "unknown",
+      "description": "- returns the Tangent of the angle specified (specified in radians).asin(x)-- returns the Arc Sine of the value specified (return value is in radians).acos(x)-- returns the Arc Cosine of the value specified (return value is in radians).atan(x)-- returns the Arc Tangent of the value specified (return value is in radians).atan2(x,y)-- returns the Arc Tangent of x divided by y (return value is in radians).sqr(x)-- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "tan(angle)"
+    },
+    {
+      "name": "asin",
+      "category": "unknown",
+      "description": "- returns the Arc Sine of the value specified (return value is in radians).acos(x)-- returns the Arc Cosine of the value specified (return value is in radians).atan(x)-- returns the Arc Tangent of the value specified (return value is in radians).atan2(x,y)-- returns the Arc Tangent of x divided by y (return value is in radians).sqr(x)-- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "asin(x)"
+    },
+    {
+      "name": "acos",
+      "category": "unknown",
+      "description": "- returns the Arc Cosine of the value specified (return value is in radians).atan(x)-- returns the Arc Tangent of the value specified (return value is in radians).atan2(x,y)-- returns the Arc Tangent of x divided by y (return value is in radians).sqr(x)-- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "acos(x)"
+    },
+    {
+      "name": "atan",
+      "category": "unknown",
+      "description": "- returns the Arc Tangent of the value specified (return value is in radians).atan2(x,y)-- returns the Arc Tangent of x divided by y (return value is in radians).sqr(x)-- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "atan(x)"
+    },
+    {
+      "name": "atan2",
+      "category": "unknown",
+      "description": "- returns the Arc Tangent of x divided by y (return value is in radians).sqr(x)-- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "atan2(x,y)"
+    },
+    {
+      "name": "sqr",
+      "category": "unknown",
+      "description": "- returns the square of the parameter (similar to x*x, though only evaluating x once).sqrt(x)-- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "sqr(x)"
+    },
+    {
+      "name": "sqrt",
+      "category": "unknown",
+      "description": "- returns the square root of the parameter.pow(x,y)-- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "sqrt(x)"
+    },
+    {
+      "name": "pow",
+      "category": "unknown",
+      "description": "- returns the first parameter raised to the second parameter-th power. Identical in behavior and performance to the^ operator.exp(x)-- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "pow(x,y)"
+    },
+    {
+      "name": "exp",
+      "category": "unknown",
+      "description": "- returns the number e (approx 2.718) raised to the parameter-th power. This function is significantly faster thanpow()or the^ operatorlog(x)-- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "exp(x)"
+    },
+    {
+      "name": "log",
+      "category": "unknown",
+      "description": "- returns the natural logarithm (base e) of the parameter.log10(x)-- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "log(x)"
+    },
+    {
+      "name": "log10",
+      "category": "unknown",
+      "description": "- returns the logarithm (base 10) of the parameter.abs(x)-- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "log10(x)"
+    },
+    {
+      "name": "abs",
+      "category": "unknown",
+      "description": "- returns the absolute value of the parameter.min(x,y)-- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "abs(x)"
+    },
+    {
+      "name": "min",
+      "category": "unknown",
+      "description": "- returns the minimum value of the two parameters.max(x,y)-- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "min(x,y)"
+    },
+    {
+      "name": "max",
+      "category": "unknown",
+      "description": "- returns the maximum value of the two parameters.sign(x)-- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "max(x,y)"
+    },
+    {
+      "name": "sign",
+      "category": "unknown",
+      "description": "- returns the sign of the parameter (-1, 0, or 1).rand(x)-- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "sign(x)"
+    },
+    {
+      "name": "rand",
+      "category": "unknown",
+      "description": "- returns a psuedorandom number between 0 and the parameter.floor(x)-- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "rand(x)"
+    },
+    {
+      "name": "floor",
+      "category": "unknown",
+      "description": "- rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).ceil(x)-- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "floor(x)"
+    },
+    {
+      "name": "ceil",
+      "category": "unknown",
+      "description": "- rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).invsqrt(x)-- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "ceil(x)"
+    },
+    {
+      "name": "invsqrt",
+      "category": "unknown",
+      "description": "- returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+      "signature": "invsqrt(x)"
+    },
+    {
+      "name": "time",
+      "category": "unknown",
+      "description": "- REAPER 4.60+Returns the current time as seconds since January 1, 1970. 1 second granularity. If a parameter is specified, it will be set to the timestamp.time_precise([v])-- REAPER 4.60+Returns a system-specific timestamp in seconds. Granularity is system-defined, but generally much less than 1 millisecond. Useful for benchmarking. If a parameter is specified, it will be set to the timestamp.",
+      "signature": "time([v])"
+    },
+    {
+      "name": "time_precise",
+      "category": "unknown",
+      "description": "- REAPER 4.60+Returns a system-specific timestamp in seconds. Granularity is system-defined, but generally much less than 1 millisecond. Useful for benchmarking. If a parameter is specified, it will be set to the timestamp.",
+      "signature": "time_precise([v])"
+    },
+    {
+      "name": "file_open",
+      "category": "unknown",
+      "description": "index or slider)Example:filename:0,myfile.wav",
+      "signature": "file_open(0)"
+    },
+    {
+      "name": "file_close",
+      "category": "unknown",
+      "description": "handle)Example:file_close(handle);Closes a file opened with file_open().file_rewind(handle)Example:file_rewind(handle);Use this to rewind the current file to the beginning, to re-read the file etc.file_var(handle,variable)Example:file_var(handle,myVar);This reads (or writes if in a @serialize write)",
+      "signature": "file_close(handle)"
+    },
+    {
+      "name": "file_rewind",
+      "category": "unknown",
+      "description": "handle)Example:file_rewind(handle);Use this to rewind the current file to the beginning, to re-read the file etc.file_var(handle,variable)Example:file_var(handle,myVar);This reads (or writes if in a @serialize write) the variable from(to) the current file.file_mem(handle,offset, length)Example:amt=f",
+      "signature": "file_rewind(handle)"
+    },
+    {
+      "name": "file_var",
+      "category": "unknown",
+      "description": "handle,variable)Example:file_var(handle,myVar);This reads (or writes if in a @serialize write) the variable from(to) the current file.file_mem(handle,offset, length)Example:amt=file_mem(handle,offset,len);This reads (or writes) the block of local memory from(to) the current file.",
+      "signature": "file_var(handle,myVar)"
+    },
+    {
+      "name": "file_mem",
+      "category": "unknown",
+      "description": "handle,offset, length)Example:amt=file_mem(handle,offset,len);This reads (or writes) the block of local memory from(to) the current file.",
+      "signature": "file_mem(handle,offset,len)"
+    },
+    {
+      "name": "file_avail",
+      "category": "unknown",
+      "description": "handle)Example:len=file_avail(handle);Returns the number of items remaining in the file, if it is in read",
+      "signature": "file_avail(handle)"
+    },
+    {
+      "name": "file_riff",
+      "category": "unknown",
+      "description": "handle,nch,samplrate)Example:file_riff(handle,nch,samplrate);",
+      "signature": "file_riff(handle,nch,samplrate)"
+    },
+    {
+      "name": "file_text",
+      "category": "unknown",
+      "description": "handle,istext)Example:istext=file_text(handle);",
+      "signature": "file_text(handle)"
+    },
+    {
+      "name": "file_string",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Reads or writes astringfrom/to the file handle. If operating on a normal file, the string will be a line of text (possibly including newline or other characters). If in @serialize, the string will be encoded as a blob with length, which means that it is binary-safe (you can include NUL characters within the string etc).",
+      "signature": "file_string(handle,str)"
+    },
+    {
+      "name": "gfx_drawstr",
+      "category": "unknown",
+      "description": "str[,flags,right,bottom])-- REAPER 4.59+Draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y so that subsequent draws will occur in a similar place:gfx_drawstr(\"a\"); gfx_drawstr(\"b\");will look about the same as:gfx_drawstr(\"ab\");In REAPER 5.30+, flags,right,bottom can be specified to control alignm",
+      "signature": "gfx_drawstr(\"a\")"
+    },
+    {
+      "name": "gfx_blitext",
+      "category": "unknown",
+      "description": "source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:lin",
+      "signature": "gfx_blitext(img,coordinatelist,angle)"
+    },
+    {
+      "name": "gfx_set",
+      "category": "unknown",
+      "description": "- REAPER 4.76+Setsgfx_r/gfx_g/gfx_bto r or r,g,b.gfx_ais set to 1 if not specified.gfx_modeis set to 0 if not specified.gfx_destis set only if dest is specified.gfx_lineto(x,y,aa)-- the aa parameter is optional in REAPER 4.59+Draws a line fromgfx_x,gfx_yto x,y. if aa is 0.5 or greater, then antialiasing is used. Updatesgfx_xandgfx_yto x,y.gfx_line(x,y,x2,y2[,aa])-- REAPER 4.59+Draws a line from x,y to x2,y2, and if aa is not specified or 0.5 or greater, it will be antialiased.gfx_rectto(x,y)Fills a rectangle fromgfx_x,gfx_yto x,y. Updatesgfx_x,gfx_yto x,y.gfx_rect(x,y,w,h)-- REAPER 4.59+Fills a rectngle at x,y, w,h pixels in dimension.gfx_setpixel(r,g,b)Writes a pixel of r,g,b togfx_x,gfx_y.gfx_getpixel(r,g,b)Gets the value of the pixel atgfx_x,gfx_yinto r,g,b.gfx_drawnumber(n,ndigits)Draws the number \"n\" with \"ndigits\" of precision togfx_x,gfx_y, and updatesgfx_xto the right side of the drawing. The text height isgfx_texthgfx_drawchar($'c')Draws the character 'c' (can be a numeric ASCII code as well), togfx_x,gfx_y, and movesgfx_xover by the size of the character.gfx_drawstr(str[,flags,right,bottom])-- REAPER 4.59+Draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y so that subsequent draws will occur in a similar place:gfx_drawstr(\"a\"); gfx_drawstr(\"b\");will look about the same as:gfx_drawstr(\"ab\");In REAPER 5.30+, flags,right,bottom can be specified to control alignment:flags&1: center horizontallyflags&2: right justifyflags&4: center verticallyflags&8: bottom justifyflags&256: ignore right/bottom, otherwise text is clipped to (gfx_x, gfx_y, right, bottom)gfx_measurestr(str,w,h)-- REAPER 4.59+Measures the drawing dimensions of astringwith the current font (as set bygfx_setfont).gfx_setfont(idx[,fontface, sz, flags])-- REAPER 4.59+Can select a font and optionally configure it. idx=0 for default bitmapped font, no configuration is possible for this font. idx=1..16 for a configurable font, specify fontface such as \"Arial\", sz of 8-100, and optionally specify flags, which is a multibyte character, which can include 'i' for italics, 'u' for underline, or 'b' for bold. These flags may or may not be supported depending on the font and OS. After calling gfx_setfont,gfx_texthmay be updated to reflect the new average line height.gfx_getfont()-- REAPER 4.59+Returns current font index.gfx_printf(str, ...)-- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_set(r[g,b,a,mode,dest])"
+    },
+    {
+      "name": "gfx_lineto",
+      "category": "unknown",
+      "description": "- the aa parameter is optional in REAPER 4.59+Draws a line fromgfx_x,gfx_yto x,y. if aa is 0.5 or greater, then antialiasing is used. Updatesgfx_xandgfx_yto x,y.gfx_line(x,y,x2,y2[,aa])-- REAPER 4.59+Draws a line from x,y to x2,y2, and if aa is not specified or 0.5 or greater, it will be antialiased.gfx_rectto(x,y)Fills a rectangle fromgfx_x,gfx_yto x,y. Updatesgfx_x,gfx_yto x,y.gfx_rect(x,y,w,h)-- REAPER 4.59+Fills a rectngle at x,y, w,h pixels in dimension.gfx_setpixel(r,g,b)Writes a pixel of r,g,b togfx_x,gfx_y.gfx_getpixel(r,g,b)Gets the value of the pixel atgfx_x,gfx_yinto r,g,b.gfx_drawnumber(n,ndigits)Draws the number \"n\" with \"ndigits\" of precision togfx_x,gfx_y, and updatesgfx_xto the right side of the drawing. The text height isgfx_texthgfx_drawchar($'c')Draws the character 'c' (can be a numeric ASCII code as well), togfx_x,gfx_y, and movesgfx_xover by the size of the character.gfx_drawstr(str[,flags,right,bottom])-- REAPER 4.59+Draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y so that subsequent draws will occur in a similar place:gfx_drawstr(\"a\"); gfx_drawstr(\"b\");will look about the same as:gfx_drawstr(\"ab\");In REAPER 5.30+, flags,right,bottom can be specified to control alignment:flags&1: center horizontallyflags&2: right justifyflags&4: center verticallyflags&8: bottom justifyflags&256: ignore right/bottom, otherwise text is clipped to (gfx_x, gfx_y, right, bottom)gfx_measurestr(str,w,h)-- REAPER 4.59+Measures the drawing dimensions of astringwith the current font (as set bygfx_setfont).gfx_setfont(idx[,fontface, sz, flags])-- REAPER 4.59+Can select a font and optionally configure it. idx=0 for default bitmapped font, no configuration is possible for this font. idx=1..16 for a configurable font, specify fontface such as \"Arial\", sz of 8-100, and optionally specify flags, which is a multibyte character, which can include 'i' for italics, 'u' for underline, or 'b' for bold. These flags may or may not be supported depending on the font and OS. After calling gfx_setfont,gfx_texthmay be updated to reflect the new average line height.gfx_getfont()-- REAPER 4.59+Returns current font index.gfx_printf(str, ...)-- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_lineto(x,y,aa)"
+    },
+    {
+      "name": "gfx_line",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Draws a line from x,y to x2,y2, and if aa is not specified or 0.5 or greater, it will be antialiased.gfx_rectto(x,y)Fills a rectangle fromgfx_x,gfx_yto x,y. Updatesgfx_x,gfx_yto x,y.gfx_rect(x,y,w,h)-- REAPER 4.59+Fills a rectngle at x,y, w,h pixels in dimension.gfx_setpixel(r,g,b)Writes a pixel of r,g,b togfx_x,gfx_y.gfx_getpixel(r,g,b)Gets the value of the pixel atgfx_x,gfx_yinto r,g,b.gfx_drawnumber(n,ndigits)Draws the number \"n\" with \"ndigits\" of precision togfx_x,gfx_y, and updatesgfx_xto the right side of the drawing. The text height isgfx_texthgfx_drawchar($'c')Draws the character 'c' (can be a numeric ASCII code as well), togfx_x,gfx_y, and movesgfx_xover by the size of the character.gfx_drawstr(str[,flags,right,bottom])-- REAPER 4.59+Draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y so that subsequent draws will occur in a similar place:gfx_drawstr(\"a\"); gfx_drawstr(\"b\");will look about the same as:gfx_drawstr(\"ab\");In REAPER 5.30+, flags,right,bottom can be specified to control alignment:flags&1: center horizontallyflags&2: right justifyflags&4: center verticallyflags&8: bottom justifyflags&256: ignore right/bottom, otherwise text is clipped to (gfx_x, gfx_y, right, bottom)gfx_measurestr(str,w,h)-- REAPER 4.59+Measures the drawing dimensions of astringwith the current font (as set bygfx_setfont).gfx_setfont(idx[,fontface, sz, flags])-- REAPER 4.59+Can select a font and optionally configure it. idx=0 for default bitmapped font, no configuration is possible for this font. idx=1..16 for a configurable font, specify fontface such as \"Arial\", sz of 8-100, and optionally specify flags, which is a multibyte character, which can include 'i' for italics, 'u' for underline, or 'b' for bold. These flags may or may not be supported depending on the font and OS. After calling gfx_setfont,gfx_texthmay be updated to reflect the new average line height.gfx_getfont()-- REAPER 4.59+Returns current font index.gfx_printf(str, ...)-- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_line(x,y,x2,y2[,aa])"
+    },
+    {
+      "name": "gfx_rect",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Fills a rectngle at x,y, w,h pixels in dimension.gfx_setpixel(r,g,b)Writes a pixel of r,g,b togfx_x,gfx_y.gfx_getpixel(r,g,b)Gets the value of the pixel atgfx_x,gfx_yinto r,g,b.gfx_drawnumber(n,ndigits)Draws the number \"n\" with \"ndigits\" of precision togfx_x,gfx_y, and updatesgfx_xto the right side of the drawing. The text height isgfx_texthgfx_drawchar($'c')Draws the character 'c' (can be a numeric ASCII code as well), togfx_x,gfx_y, and movesgfx_xover by the size of the character.gfx_drawstr(str[,flags,right,bottom])-- REAPER 4.59+Draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y so that subsequent draws will occur in a similar place:gfx_drawstr(\"a\"); gfx_drawstr(\"b\");will look about the same as:gfx_drawstr(\"ab\");In REAPER 5.30+, flags,right,bottom can be specified to control alignment:flags&1: center horizontallyflags&2: right justifyflags&4: center verticallyflags&8: bottom justifyflags&256: ignore right/bottom, otherwise text is clipped to (gfx_x, gfx_y, right, bottom)gfx_measurestr(str,w,h)-- REAPER 4.59+Measures the drawing dimensions of astringwith the current font (as set bygfx_setfont).gfx_setfont(idx[,fontface, sz, flags])-- REAPER 4.59+Can select a font and optionally configure it. idx=0 for default bitmapped font, no configuration is possible for this font. idx=1..16 for a configurable font, specify fontface such as \"Arial\", sz of 8-100, and optionally specify flags, which is a multibyte character, which can include 'i' for italics, 'u' for underline, or 'b' for bold. These flags may or may not be supported depending on the font and OS. After calling gfx_setfont,gfx_texthmay be updated to reflect the new average line height.gfx_getfont()-- REAPER 4.59+Returns current font index.gfx_printf(str, ...)-- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_rect(x,y,w,h)"
+    },
+    {
+      "name": "gfx_measurestr",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Measures the drawing dimensions of astringwith the current font (as set bygfx_setfont).gfx_setfont(idx[,fontface, sz, flags])-- REAPER 4.59+Can select a font and optionally configure it. idx=0 for default bitmapped font, no configuration is possible for this font. idx=1..16 for a configurable font, specify fontface such as \"Arial\", sz of 8-100, and optionally specify flags, which is a multibyte character, which can include 'i' for italics, 'u' for underline, or 'b' for bold. These flags may or may not be supported depending on the font and OS. After calling gfx_setfont,gfx_texthmay be updated to reflect the new average line height.gfx_getfont()-- REAPER 4.59+Returns current font index.gfx_printf(str, ...)-- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_measurestr(str,w,h)"
+    },
+    {
+      "name": "gfx_setfont",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Can select a font and optionally configure it. idx=0 for default bitmapped font, no configuration is possible for this font. idx=1..16 for a configurable font, specify fontface such as \"Arial\", sz of 8-100, and optionally specify flags, which is a multibyte character, which can include 'i' for italics, 'u' for underline, or 'b' for bold. These flags may or may not be supported depending on the font and OS. After calling gfx_setfont,gfx_texthmay be updated to reflect the new average line height.gfx_getfont()-- REAPER 4.59+Returns current font index.gfx_printf(str, ...)-- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_setfont(idx[,fontface, sz, flags])"
+    },
+    {
+      "name": "gfx_getfont",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Returns current font index.gfx_printf(str, ...)-- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_getfont()"
+    },
+    {
+      "name": "gfx_printf",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Formats and draws astringat gfx_x, gfx_y, and updates gfx_x/gfx_y accordingly (the latter only if the formatted string contains newline).gfx_blurto(x,y)-- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_printf(str, ...)"
+    },
+    {
+      "name": "gfx_blurto",
+      "category": "unknown",
+      "description": "- REAPER 2.018+Blurs the region of the screen between gfx_x,gfx_y and x,y, and updates gfx_x,gfx_y to x,y.gfx_blit(source, scale, rotation)-- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_blurto(x,y)"
+    },
+    {
+      "name": "gfx_blit",
+      "category": "unknown",
+      "description": "- REAPER 2.018+If three parameters are specified, copies the entirity of the source bitmap to gfx_x,gfx_y using current opacity and copy mode (set withgfx_a,gfx_mode). You can specify scale (1.0 is unscaled) and rotation (0.0 is not rotated, angles are in radians).For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).gfx_blit(source, scale, rotation[, srcx, srcy, srcw, srch, destx, desty, destw, desth, rotxoffs, rotyoffs])-- REAPER 4.59+Srcx/srcy/srcw/srch specify the source rectangle (if omitted srcw/srch default to image size), destx/desty/destw/desth specify dest rectangle (if not specified, these will default to reasonable defaults -- destw/desth default to srcw/srch * scale).gfx_blitext(source, coordinatelist, rotation)-- REAPER 2.018+This is a version of gfx_blit which takes many of its parameters via a buffer rather than direct parameters.For the \"source\" parameter specify -1 to use the main framebuffer as source, or 0..127 to use the image specified (or PNG file in afilename:line).coordinatelist should be an index to memory where a list of 10 parameters are stored, such as:coordinatelist=1000; // use memory slots 1000-1009",
+      "signature": "gfx_blit(source, scale, rotation)"
+    },
+    {
+      "name": "gfx_getimgdim",
+      "category": "unknown",
+      "description": "- REAPER 2.018+Retreives the dimensions of image (representing afilename:index number) into w and h. Sets these values to 0 if an image failed loading (or if the filename index is invalid).gfx_setimgdim(image, w,h)-- REAPER 4.59+Resize image referenced by index 0..127, width and height must be 0-2048. The contents of the image will be undefined after the resize.gfx_loadimg(image, filename)-- REAPER 4.59+Load image from filename (seestrings) into slot 0..127 specified by image. Returns the image index if success, otherwise -1 if failure. The image will be resized to the dimensions of the image file.gfx_gradrect(x,y,w,h, r,g,b,a[, drdx, dgdx, dbdx, dadx, drdy, dgdy, dbdy, dady])-- REAPER 4.59+Fills a gradient rectangle with the color and alpha specified. drdx-dadx reflect the adjustment (per-pixel) applied for each pixel moved to the right, drdy-dady are the adjustment applied for each pixel moved toward the bottom. Normally drdx=adjustamount/w, drdy=adjustamount/h, etc.gfx_muladdrect(x,y,w,h, mul_r, mul_g, mul_b[, mul_a, add_r, add_g, add_b, add_a])-- REAPER 4.59+Multiplies each pixel by mul_* and adds add_*, and updates in-place. Useful for changing brightness/contrast, or other effects.gfx_deltablit(srcimg,srcx,srcy,srcw,srch, destx, desty, destw, desth, dsdx, dtdx, dsdy, dtdy, dsdxdy, dtdxdy[, usecliprect=1] )-- REAPER 4.59+Blits from srcimg(srcx,srcy,srcw,srch) to destination (destx,desty,destw,desth). Source texture coordinates are s/t, dsdx represents the change in s coordinate for each x pixel, dtdy represents the change in t coordinate for each y pixel, etc. dsdxdy represents the change in dsdx for each line. In REAPER 5.96+ usecliprect=0 can be specified as an additional parameter.gfx_transformblit(srcimg, destx, desty, destw, desth, div_w, div_h, table)-- REAPER 4.59+Blits to destination at (destx,desty), size (destw,desth).  div_w and div_h should be 2..64, and table should point to a table of 2*div_w*div_h values (this table must not cross a 65536 item boundary). Each pair in the table represents a S,T coordinate in the source image, and the table is treated as a left-right, top-bottom list of texture coordinates, which will then be rendered to the destination.gfx_circle(x,y,r[,fill,antialias])-- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_getimgdim(image, w, h)"
+    },
+    {
+      "name": "gfx_setimgdim",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Resize image referenced by index 0..127, width and height must be 0-2048. The contents of the image will be undefined after the resize.gfx_loadimg(image, filename)-- REAPER 4.59+Load image from filename (seestrings) into slot 0..127 specified by image. Returns the image index if success, otherwise -1 if failure. The image will be resized to the dimensions of the image file.gfx_gradrect(x,y,w,h, r,g,b,a[, drdx, dgdx, dbdx, dadx, drdy, dgdy, dbdy, dady])-- REAPER 4.59+Fills a gradient rectangle with the color and alpha specified. drdx-dadx reflect the adjustment (per-pixel) applied for each pixel moved to the right, drdy-dady are the adjustment applied for each pixel moved toward the bottom. Normally drdx=adjustamount/w, drdy=adjustamount/h, etc.gfx_muladdrect(x,y,w,h, mul_r, mul_g, mul_b[, mul_a, add_r, add_g, add_b, add_a])-- REAPER 4.59+Multiplies each pixel by mul_* and adds add_*, and updates in-place. Useful for changing brightness/contrast, or other effects.gfx_deltablit(srcimg,srcx,srcy,srcw,srch, destx, desty, destw, desth, dsdx, dtdx, dsdy, dtdy, dsdxdy, dtdxdy[, usecliprect=1] )-- REAPER 4.59+Blits from srcimg(srcx,srcy,srcw,srch) to destination (destx,desty,destw,desth). Source texture coordinates are s/t, dsdx represents the change in s coordinate for each x pixel, dtdy represents the change in t coordinate for each y pixel, etc. dsdxdy represents the change in dsdx for each line. In REAPER 5.96+ usecliprect=0 can be specified as an additional parameter.gfx_transformblit(srcimg, destx, desty, destw, desth, div_w, div_h, table)-- REAPER 4.59+Blits to destination at (destx,desty), size (destw,desth).  div_w and div_h should be 2..64, and table should point to a table of 2*div_w*div_h values (this table must not cross a 65536 item boundary). Each pair in the table represents a S,T coordinate in the source image, and the table is treated as a left-right, top-bottom list of texture coordinates, which will then be rendered to the destination.gfx_circle(x,y,r[,fill,antialias])-- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_setimgdim(image, w,h)"
+    },
+    {
+      "name": "gfx_loadimg",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Load image from filename (seestrings) into slot 0..127 specified by image. Returns the image index if success, otherwise -1 if failure. The image will be resized to the dimensions of the image file.gfx_gradrect(x,y,w,h, r,g,b,a[, drdx, dgdx, dbdx, dadx, drdy, dgdy, dbdy, dady])-- REAPER 4.59+Fills a gradient rectangle with the color and alpha specified. drdx-dadx reflect the adjustment (per-pixel) applied for each pixel moved to the right, drdy-dady are the adjustment applied for each pixel moved toward the bottom. Normally drdx=adjustamount/w, drdy=adjustamount/h, etc.gfx_muladdrect(x,y,w,h, mul_r, mul_g, mul_b[, mul_a, add_r, add_g, add_b, add_a])-- REAPER 4.59+Multiplies each pixel by mul_* and adds add_*, and updates in-place. Useful for changing brightness/contrast, or other effects.gfx_deltablit(srcimg,srcx,srcy,srcw,srch, destx, desty, destw, desth, dsdx, dtdx, dsdy, dtdy, dsdxdy, dtdxdy[, usecliprect=1] )-- REAPER 4.59+Blits from srcimg(srcx,srcy,srcw,srch) to destination (destx,desty,destw,desth). Source texture coordinates are s/t, dsdx represents the change in s coordinate for each x pixel, dtdy represents the change in t coordinate for each y pixel, etc. dsdxdy represents the change in dsdx for each line. In REAPER 5.96+ usecliprect=0 can be specified as an additional parameter.gfx_transformblit(srcimg, destx, desty, destw, desth, div_w, div_h, table)-- REAPER 4.59+Blits to destination at (destx,desty), size (destw,desth).  div_w and div_h should be 2..64, and table should point to a table of 2*div_w*div_h values (this table must not cross a 65536 item boundary). Each pair in the table represents a S,T coordinate in the source image, and the table is treated as a left-right, top-bottom list of texture coordinates, which will then be rendered to the destination.gfx_circle(x,y,r[,fill,antialias])-- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_loadimg(image, filename)"
+    },
+    {
+      "name": "gfx_gradrect",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Fills a gradient rectangle with the color and alpha specified. drdx-dadx reflect the adjustment (per-pixel) applied for each pixel moved to the right, drdy-dady are the adjustment applied for each pixel moved toward the bottom. Normally drdx=adjustamount/w, drdy=adjustamount/h, etc.gfx_muladdrect(x,y,w,h, mul_r, mul_g, mul_b[, mul_a, add_r, add_g, add_b, add_a])-- REAPER 4.59+Multiplies each pixel by mul_* and adds add_*, and updates in-place. Useful for changing brightness/contrast, or other effects.gfx_deltablit(srcimg,srcx,srcy,srcw,srch, destx, desty, destw, desth, dsdx, dtdx, dsdy, dtdy, dsdxdy, dtdxdy[, usecliprect=1] )-- REAPER 4.59+Blits from srcimg(srcx,srcy,srcw,srch) to destination (destx,desty,destw,desth). Source texture coordinates are s/t, dsdx represents the change in s coordinate for each x pixel, dtdy represents the change in t coordinate for each y pixel, etc. dsdxdy represents the change in dsdx for each line. In REAPER 5.96+ usecliprect=0 can be specified as an additional parameter.gfx_transformblit(srcimg, destx, desty, destw, desth, div_w, div_h, table)-- REAPER 4.59+Blits to destination at (destx,desty), size (destw,desth).  div_w and div_h should be 2..64, and table should point to a table of 2*div_w*div_h values (this table must not cross a 65536 item boundary). Each pair in the table represents a S,T coordinate in the source image, and the table is treated as a left-right, top-bottom list of texture coordinates, which will then be rendered to the destination.gfx_circle(x,y,r[,fill,antialias])-- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_gradrect(x,y,w,h, r,g,b,a[, drdx, dgdx, dbdx, dadx, drdy, dgdy, dbdy, dady])"
+    },
+    {
+      "name": "gfx_muladdrect",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Multiplies each pixel by mul_* and adds add_*, and updates in-place. Useful for changing brightness/contrast, or other effects.gfx_deltablit(srcimg,srcx,srcy,srcw,srch, destx, desty, destw, desth, dsdx, dtdx, dsdy, dtdy, dsdxdy, dtdxdy[, usecliprect=1] )-- REAPER 4.59+Blits from srcimg(srcx,srcy,srcw,srch) to destination (destx,desty,destw,desth). Source texture coordinates are s/t, dsdx represents the change in s coordinate for each x pixel, dtdy represents the change in t coordinate for each y pixel, etc. dsdxdy represents the change in dsdx for each line. In REAPER 5.96+ usecliprect=0 can be specified as an additional parameter.gfx_transformblit(srcimg, destx, desty, destw, desth, div_w, div_h, table)-- REAPER 4.59+Blits to destination at (destx,desty), size (destw,desth).  div_w and div_h should be 2..64, and table should point to a table of 2*div_w*div_h values (this table must not cross a 65536 item boundary). Each pair in the table represents a S,T coordinate in the source image, and the table is treated as a left-right, top-bottom list of texture coordinates, which will then be rendered to the destination.gfx_circle(x,y,r[,fill,antialias])-- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_muladdrect(x,y,w,h, mul_r, mul_g, mul_b[, mul_a, add_r, add_g, add_b, add_a])"
+    },
+    {
+      "name": "gfx_deltablit",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Blits from srcimg(srcx,srcy,srcw,srch) to destination (destx,desty,destw,desth). Source texture coordinates are s/t, dsdx represents the change in s coordinate for each x pixel, dtdy represents the change in t coordinate for each y pixel, etc. dsdxdy represents the change in dsdx for each line. In REAPER 5.96+ usecliprect=0 can be specified as an additional parameter.gfx_transformblit(srcimg, destx, desty, destw, desth, div_w, div_h, table)-- REAPER 4.59+Blits to destination at (destx,desty), size (destw,desth).  div_w and div_h should be 2..64, and table should point to a table of 2*div_w*div_h values (this table must not cross a 65536 item boundary). Each pair in the table represents a S,T coordinate in the source image, and the table is treated as a left-right, top-bottom list of texture coordinates, which will then be rendered to the destination.gfx_circle(x,y,r[,fill,antialias])-- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_deltablit(srcimg,srcx,srcy,srcw,srch, destx, desty, destw, desth, dsdx, dtdx, dsdy, dtdy, dsdxdy, dtdxdy[, usecliprect=1] )"
+    },
+    {
+      "name": "gfx_transformblit",
+      "category": "unknown",
+      "description": "- REAPER 4.59+Blits to destination at (destx,desty), size (destw,desth).  div_w and div_h should be 2..64, and table should point to a table of 2*div_w*div_h values (this table must not cross a 65536 item boundary). Each pair in the table represents a S,T coordinate in the source image, and the table is treated as a left-right, top-bottom list of texture coordinates, which will then be rendered to the destination.gfx_circle(x,y,r[,fill,antialias])-- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_transformblit(srcimg, destx, desty, destw, desth, div_w, div_h, table)"
+    },
+    {
+      "name": "gfx_circle",
+      "category": "unknown",
+      "description": "- REAPER 4.60+Draws a circle, optionally filling/antialiasing.gfx_roundrect(x,y,w,h,radius[,antialias])-- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_circle(x,y,r[,fill,antialias])"
+    },
+    {
+      "name": "gfx_roundrect",
+      "category": "unknown",
+      "description": "- REAPER 4.60+Draws a rectangle with rounded corners.gfx_arc(x,y,r, ang1, ang2[,antialias])-- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_roundrect(x,y,w,h,radius[,antialias])"
+    },
+    {
+      "name": "gfx_arc",
+      "category": "unknown",
+      "description": "- REAPER 4.60+Draws an arc of the circle centered at x,y, with ang1/ang2 being specified in radians.gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])-- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_arc(x,y,r, ang1, ang2[,antialias])"
+    },
+    {
+      "name": "gfx_triangle",
+      "category": "unknown",
+      "description": "- REAPER 5.0+Fills a triangle (or a convex polygon if more than 3 pairs of coordinates are specified).gfx_getchar([char, unicodechar])-- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_triangle(x1,y1,x2,y2,x3,y3[,x4,y4,...])"
+    },
+    {
+      "name": "gfx_getchar",
+      "category": "unknown",
+      "description": "- REAPER 4.60+, unicodechar requires REAPER 6.74+If no parameter or zero is passed, returns a character from the plug-in window's keyboard queue. The return value will be less than 1 if no value is available. Note that calling gfx_getchar() at least once causes mouse_cap to reflect keyboard modifiers even when the mouse is not captured.If char is passed and nonzero, returns whether that key is currently down.Common values are standard ASCII, such as 'a', 'A', '=' and '1', but for many keys multi-byte values are used, including 'home', 'up', 'down', 'left', 'rght', 'f1'.. 'f12', 'pgup', 'pgdn', 'ins', and 'del'.If the user has the \"send all keyboard input to plug-in\" option set, then many modified and special keys will be returned, including:Ctrl/Cmd+A..Ctrl+Z as 1..26Ctrl/Cmd+Alt+A..Z as 257..282,Alt+A..Z as 'A'+256..'Z'+25627 for ESC13 for Enter' ' for spaceThe plug-in can specify a line (beforecode sections):options:want_all_kbwhich will change the \"send all keyboard input to plug-in\" option to be on by default for new instances of the plug-in.-- REAPER 4.6+In REAPER 5.96+, gfx_getchar(65536) returns a mask of special window information flags: 1 is set if supported, 2 is set if window has focus, 4 is set if window is visible.In REAPER 6.74+, non-ASCII unicode characters are returned as: ('u'<<24) | unicode_value. You can also pass unicodechar as a second parameter (passing 0 as the first parameter), and if a non-ASCII unicode character is pressed, unicodechar will be set to unicode value directly.gfx_showmenu(\"str\")-- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_getchar([char, unicodechar])"
+    },
+    {
+      "name": "gfx_showmenu",
+      "category": "unknown",
+      "description": "- REAPER 4.76+Shows a popup menu at gfx_x,gfx_y. str is a list of fields separated by | characters. Each field represents a menu item.",
+      "signature": "gfx_showmenu(\"str\")"
+    },
+    {
+      "name": "gfx_setcursor",
+      "category": "unknown",
+      "description": "- REAPER 4.76+Sets the mouse cursor. resource_id is a value like 32512 (for an arrow cursor), custom_cursor_name is a string description (such as \\\"arrow\\\") that will be override the resource_id, if available. In either case resource_id should be nonzero.gfx_r, gfx_g, gfx_b, gfx_aThese represent the current red, green, blue, and alpha components used by drawing operations (0.0..1.0).gfx_w, gfx_hThese are set to the current width and height of the UI framebuffer.gfx_x, gfx_yThese set the \"current\" graphics position in x,y. You can set these yourselves, and many of the drawing functions update them as well.gfx_modeSet to 0 for default options. Add 1.0 for additive blend mode (if you wish to do subtractive, set gfx_a to negative and use gfx_mode as additive).  Add 2.0 to disable source alpha forgfx_blit(). Add 4.0 to disable filtering for gfx_blit().gfx_clearIf set to a value greater than -1.0, this will result in the framebuffer being cleared to that color. the color for this one is packed RGB (0..255), i.e. red+green*256+blue*65536. The default is 0 (black).gfx_dest-- REAPER 4.59+Defaults to -1, set to 0..127 to have drawing operations go to an offscreen buffer (or loaded image).gfx_texthSet to the height of a line of text in the current font. Do not modify this variable.gfx_ext_retinaTo support hidpi/retina, callers should set to 1.0 on initialization, this value will be updated to value greater than 1.0 (such as 2.0) if retina/hidpi. On macOS gfx_w/gfx_h/etc will be doubled, but on other systems gfx_w/gfx_h will remain the same and gfx_ext_retina is a scaling hint for drawing.gfx_ext_flagsBitfield:1: will be set in @gfx if the JSFX is embedded in TCP/MCP-- REAPER 6.30+2: will be set in @gfx if the JSFX is running in an idle context (impliesoptions:gfx_idleoroptions:gfx_idle_onlyis set)-- REAPER 6.44+0x100 (256): script can set to specify that any embedded UI will be displayed without decoration (this should be done in @init but not later on).-- REAPER 7.45+0x200 (512): script can set to specify that any clicks on the embedded UI will be passed through and treated as an \"open UI\" command. This can be dynamically changed in @gfx depending on mouse position/etc.-- REAPER 7.45+mouse_x, mouse_ymouse_x and mouse_y are set to the coordinates of the mouse within the graphics area of the window.mouse_capA bitfield of mouse and keyboard modifier state. Note that a script must call gfx_getchar() at least once in order to get modifier state when the mouse is not captured by the window. Bitfield bits:1: left mouse button2: right mouse button4: Control key (Windows), Command key (OSX)8: Shift key16: Alt key (Windows), Option key (OSX)32: Windows key (Windows), Control key (OSX)-- REAPER 4.60+64: middle mouse button-- REAPER 4.60+mouse_wheel, mouse_hwheel-- REAPER 4.60+mouse wheel (and horizontal wheel) positions. These will change typically by 120 or a multiple thereof, the caller should clear the state to 0",
+      "signature": "gfx_setcursor(resource_id[,\"custom cursor name\"])"
+    },
+    {
+      "name": "midisend",
+      "category": "unknown",
+      "description": "offset,msg1,msg2)midisend(offset,msg1,msg2 + (msg3 * 256))midisend(offset,msg1,msg2,msg3)-- REAPER 4.60+midisend(0, $x90, 69, 127); // send note 69 to channel 0 at velocity 127 (new syntax)",
+      "signature": "midisend(0, $x90, 69, 127)"
+    },
+    {
+      "name": "127",
+      "category": "unknown",
+      "description": "send note 69 to channel 0 at velocity 127 (new syntax)",
+      "signature": "127 (new syntax)"
+    },
+    {
+      "name": "midisend_buf",
+      "category": "unknown",
+      "description": "offset,buf, len)-- REAPER 4.60+buf = 100000;",
+      "signature": "midisend_buf(10,buf,3)"
+    },
+    {
+      "name": "send",
+      "category": "unknown",
+      "description": "at sample offset 10) note-on channel 0, note 69, velocity 127",
+      "signature": "send (at sample offset 10)"
+    },
+    {
+      "name": "midisend_str",
+      "category": "unknown",
+      "description": "offset,string)-- REAPER 4.60+midisend_str(10,\"\\x90\\x11\\x7f\"); // send at sample offset 10, note-on, note 17, velocity 127Sends a variable length MIDI message from astring. Can be used to send normal MIDI messages, or SysEx messages. When sending SysEx, logic is used to automatically add leading 0xf0",
+      "signature": "midisend_str(10,\"\\x90\\x11\\x7f\")"
+    },
+    {
+      "name": "strlen",
+      "category": "unknown",
+      "description": "str) <= 3 && str_getchar(#str,0) == $x90 && str_getchar(#str,2) != 0 ? (",
+      "signature": "strlen(#str)"
+    },
+    {
+      "name": "str_getchar",
+      "category": "unknown",
+      "description": "str,0) == $x90 && str_getchar(#str,2) != 0 ? (",
+      "signature": "str_getchar(#str,0)"
+    },
+    {
+      "name": "midisyx",
+      "category": "unknown",
+      "description": "offset,msgptr,len)-- deprecated in REAPER 4.60+buf[0] = $x01;",
+      "signature": "midisyx(offset,buf,2)"
+    },
+    {
+      "name": "midirecv_buf",
+      "category": "unknown",
+      "description": "- REAPER 4.60+Receives a message to a buffer, including any SysEx messages whose length is not more than maxlen.@block",
+      "signature": "midirecv_buf(offset,buf, maxlen)"
+    },
+    {
+      "name": "midirecv_str",
+      "category": "unknown",
+      "description": "- REAPER 4.60+Receives a MIDI or SysEx message to a string.@block",
+      "signature": "midirecv_str(offset, string)"
+    },
+    {
+      "name": "do_some_extra_code",
+      "category": "unknown",
+      "description": "only compiled if some_config is >= 5",
+      "signature": "do_some_extra_code()"
+    },
+    {
+      "name": "strcpy",
+      "category": "unknown",
+      "description": "x, \"hello \");",
+      "signature": "strcpy(x, \"hello \")"
+    },
+    {
+      "name": "strcat",
+      "category": "unknown",
+      "description": "x, \"world\");",
+      "signature": "strcat(x, \"world\")"
+    },
+    {
+      "name": "match",
+      "category": "unknown",
+      "description": "needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 o",
+      "signature": "match(\"*blah*\", \"this string has the word blah in it\")"
+    },
+    {
+      "name": "strcmp",
+      "category": "unknown",
+      "description": "- compares str to str2, case sensitive, returns -1, 0, or 1stricmp(str, str2)-- compares str to str2, ignoring case, returns -1, 0, or 1strncmp(str, str2, maxlen)-- compares str to str2 up to maxlen bytes, case sensitive, returns -1, 0, or 1strnicmp(str, str2, maxlen)-- compares str to str2 up to maxlen bytes, ignoring case, returns -1, 0, or 1strncpy(str, srcstr, maxlen)-- copies srcstr into str, but stops after maxlen bytes. returns strstrncat(str, srcstr, maxlen)-- appends srcstr to str, but stops after maxlen bytes of srcstr have been read. returns strstrcpy_from(str,srcstr, offset)-- copies srcstr to str, starting offset bytes into srcstr. returns str.strcpy_substr(str,srcstr, offset, maxlen)-- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strcmp(str, str2)"
+    },
+    {
+      "name": "stricmp",
+      "category": "unknown",
+      "description": "- compares str to str2, ignoring case, returns -1, 0, or 1strncmp(str, str2, maxlen)-- compares str to str2 up to maxlen bytes, case sensitive, returns -1, 0, or 1strnicmp(str, str2, maxlen)-- compares str to str2 up to maxlen bytes, ignoring case, returns -1, 0, or 1strncpy(str, srcstr, maxlen)-- copies srcstr into str, but stops after maxlen bytes. returns strstrncat(str, srcstr, maxlen)-- appends srcstr to str, but stops after maxlen bytes of srcstr have been read. returns strstrcpy_from(str,srcstr, offset)-- copies srcstr to str, starting offset bytes into srcstr. returns str.strcpy_substr(str,srcstr, offset, maxlen)-- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "stricmp(str, str2)"
+    },
+    {
+      "name": "strncmp",
+      "category": "unknown",
+      "description": "- compares str to str2 up to maxlen bytes, case sensitive, returns -1, 0, or 1strnicmp(str, str2, maxlen)-- compares str to str2 up to maxlen bytes, ignoring case, returns -1, 0, or 1strncpy(str, srcstr, maxlen)-- copies srcstr into str, but stops after maxlen bytes. returns strstrncat(str, srcstr, maxlen)-- appends srcstr to str, but stops after maxlen bytes of srcstr have been read. returns strstrcpy_from(str,srcstr, offset)-- copies srcstr to str, starting offset bytes into srcstr. returns str.strcpy_substr(str,srcstr, offset, maxlen)-- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strncmp(str, str2, maxlen)"
+    },
+    {
+      "name": "strnicmp",
+      "category": "unknown",
+      "description": "- compares str to str2 up to maxlen bytes, ignoring case, returns -1, 0, or 1strncpy(str, srcstr, maxlen)-- copies srcstr into str, but stops after maxlen bytes. returns strstrncat(str, srcstr, maxlen)-- appends srcstr to str, but stops after maxlen bytes of srcstr have been read. returns strstrcpy_from(str,srcstr, offset)-- copies srcstr to str, starting offset bytes into srcstr. returns str.strcpy_substr(str,srcstr, offset, maxlen)-- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strnicmp(str, str2, maxlen)"
+    },
+    {
+      "name": "strncpy",
+      "category": "unknown",
+      "description": "- copies srcstr into str, but stops after maxlen bytes. returns strstrncat(str, srcstr, maxlen)-- appends srcstr to str, but stops after maxlen bytes of srcstr have been read. returns strstrcpy_from(str,srcstr, offset)-- copies srcstr to str, starting offset bytes into srcstr. returns str.strcpy_substr(str,srcstr, offset, maxlen)-- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strncpy(str, srcstr, maxlen)"
+    },
+    {
+      "name": "strncat",
+      "category": "unknown",
+      "description": "- appends srcstr to str, but stops after maxlen bytes of srcstr have been read. returns strstrcpy_from(str,srcstr, offset)-- copies srcstr to str, starting offset bytes into srcstr. returns str.strcpy_substr(str,srcstr, offset, maxlen)-- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strncat(str, srcstr, maxlen)"
+    },
+    {
+      "name": "strcpy_from",
+      "category": "unknown",
+      "description": "- copies srcstr to str, starting offset bytes into srcstr. returns str.strcpy_substr(str,srcstr, offset, maxlen)-- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strcpy_from(str,srcstr, offset)"
+    },
+    {
+      "name": "strcpy_substr",
+      "category": "unknown",
+      "description": "- copies srcstr to str, starting offset bytes into srcstr, and up to maxlen bytes. if offset is less than 0, offset is from end of source string. If maxlen is less than 0, length is limited to output string length shortened by maxlen. returns str.str_getchar(str, offset[, type])-- returns the data at byte-offset offset of str. if offset is negative, position is relative to end of string. Type defaults to signed char, but can be specified to read raw binary data in other formats (note the single quotes, these are single/multi-byte characters):'c' - signed char'cu' - unsigned char's' - signed short'S' - signed short, big endian'su' - unsigned short'Su' - unsigned short, big endian'i' - signed int'I' - signed int, big endian'iu' - unsigned int'Iu' - unsigned int, big endian'f' - float'F' - float, big endian'd' - double'D' - double, big endianstr_setchar(str, offset, value[, type])-- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strcpy_substr(str,srcstr, offset, maxlen)"
+    },
+    {
+      "name": "str_setchar",
+      "category": "unknown",
+      "description": "- sets the value at byte-offset \"offset\" of str to value (which may be one or more bytes of data). If offset is negative, then offset is relative to end of the string. If offset is the length of the string, or between (-0.5,0.0), then the character (or multibyte value if type is specified) will be appended to the string.strcpy_fromslider(str, slider)--  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "str_setchar(str, offset, value[, type])"
+    },
+    {
+      "name": "strcpy_fromslider",
+      "category": "unknown",
+      "description": "-  gets the filename if a file-slider, or the string if the slider specifies string translations, otherwise gets an empty string. slider can be either an index, or thesliderXvariable directly. returns str.sprintf(str,format, ...)-- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "strcpy_fromslider(str, slider)"
+    },
+    {
+      "name": "sprintf",
+      "category": "unknown",
+      "description": "- copies format to str, converting format strings:%% = %%s = string from parameter%d = parameter as integer%i = parameter as integer%u = parameter as unsigned integer%x = parameter as hex (lowercase) integer%X = parameter as hex (uppercase) integer%c = parameter as character%f = parameter as floating point%e = parameter as floating point (scientific notation, lowercase)%E = parameter as floating point (scientific notation, uppercase)%g = parameter as floating point (shortest representation, lowercase)%G = parameter as floating point (shortest representation, uppercase)Many standardC printf()modifiers can be used, including:%.10s = string, but only print up to 10 characters%-10s = string, left justified to 10 characters%10s = string, right justified to 10 characters%+f = floating point, always show sign%.4f = floating point, minimum of 4 digits after decimal point%10d = integer, minimum of 10 digits (space padded)%010f = integer, minimum of 10 digits (zero padded)Values for format specifiers can be specified as additional parameters to sprintf, or within {} in the format specifier (such as %{varname}d, in that case a global variable is always used).match(needle, haystack, ...)-- search for needle in haystackmatchi(needle, haystack, ...)-- search for needle in haystack (case insensitive)For these you can use simplified regex-style wildcards:* = match 0 or more characters*? = match 0 or more characters, lazy+ = match 1 or more characters+? = match 1 or more characters, lazy? = match one characterExamples:match(\"*blah*\", \"this string has the word blah in it\") == 1",
+      "signature": "sprintf(str,format, ...)"
+    },
+    {
+      "name": "getSampleRate",
+      "category": "unknown",
+      "description": "srate; // return srate",
+      "signature": "getSampleRate()"
+    },
+    {
+      "name": "mySine",
+      "category": "unknown",
+      "description": "x)",
+      "signature": "mySine(x)"
+    },
+    {
+      "name": "calculateSomething",
+      "category": "unknown",
+      "description": "x y)",
+      "signature": "calculateSomething(x y)"
+    },
+    {
+      "name": "local",
+      "category": "unknown",
+      "description": "to those sections). Functions are not able to be called recursively -- this is enforced by functions only being able to call functions that are declared before the current function, and functions not being able to call themselves. Functions may have 0 to 40 parameters. To define a function, use the",
+      "signature": "local(lastreq lastvalue)"
+    },
+    {
+      "name": "set_foo",
+      "category": "unknown",
+      "description": "x) instance(foo)",
+      "signature": "set_foo(x)"
+    },
+    {
+      "name": "instance",
+      "category": "unknown",
+      "description": "declaration in the function definition for variable names:function set_foo(x) instance(foo)",
+      "signature": "instance(foo)"
+    },
+    {
+      "name": "test2",
+      "category": "unknown",
+      "description": "this.set_foo(32);",
+      "signature": "test2()"
+    },
+    {
+      "name": "set_par_foo",
+      "category": "unknown",
+      "description": "x)",
+      "signature": "set_par_foo(x)"
+    },
+    {
+      "name": "foo",
+      "category": "unknown",
+      "description": "x) instance(foo)",
+      "signature": "foo (global)"
+    },
+    {
+      "name": "spl",
+      "category": "unknown",
+      "description": "channelindex)-- REAPER 2.018+Context:@sampleonlyIf you wish to programmatically choose which sample to access, use this function (rather thansplX). This is slightly slower than splX, however has the advantage that you can do spl(variable) (enabling easily configurable channel mappings). Valid syntax",
+      "signature": "spl(channelindex)"
+    },
+    {
+      "name": "slider",
+      "category": "unknown",
+      "description": "sliderindex)-- REAPER 3.11+Context: available everywhereIf you wish to programmatically choose which slider to access, use this function (rather thansliderX). Valid syntaxes include:val = slider(sliderindex);",
+      "signature": "slider(sliderindex)"
+    },
+    {
+      "name": "channels",
+      "category": "unknown",
+      "description": "that are delayed by pdc_delay. For example:pdc_bot_ch=0; pdc_top_ch=2; // delays the first two channels (spl0/spl1).",
+      "signature": "channels (spl0/spl1)"
+    },
+    {
+      "name": "slider_next_chg",
+      "category": "unknown",
+      "description": "- REAPER 5.0+Context:@block,@sampleUsed for sample-accurate automation. Each call will return a sample offset, and set nextval to the value at that sample offset. Returns a non-positive value if no changes (or no more changes) are available. Notes:If the value of the parameter is constant for the audio block, then the all calls to slider_next_chg() will return -1.If the audio block is entirely a linear (or bezier) transition, slider_next_chg() will return samplesblock-1 (and set the value of the second parameter to the value at the END of the audio block).If the audio block contains an inflection point, e.g. a square point, or a linear point that causes the slope to change, then slider_next_chg() will return the sample-position of the first inflection point. Calling slider_next_chg() again will return the sample-position of the NEXT inflection point, and so on until returning samplesblock-1, followed by -1 (no more inflection points).triggerContext:@block,@sampleUsage: read/writeThe trigger variable provides a facility for triggering effects.If this variable is used in an effect, the UI will show 10 trigger buttons, which when checked will result in the appropriate bit being set in this variable.For example, to check for trigger 5 (triggered also by the key '5' on the keyboard):isourtrig = trigger & (2^5);Conversely, to set trigger 5:trigger |= 2^5;Or, to clear trigger 5:trigger & (2^5) ? trigger -= 2^5;It is recommended that you use this variable in@block, but only",
+      "signature": "slider_next_chg(sliderindex,nextval)"
+    }
+  ],
+  "operators": [
+    {
+      "operator": "+",
+      "description": "Addition"
+    },
+    {
+      "operator": "-",
+      "description": "Subtraction"
+    },
+    {
+      "operator": "*",
+      "description": "Multiplication"
+    },
+    {
+      "operator": "/",
+      "description": "Division"
+    },
+    {
+      "operator": "%",
+      "description": "Modulo"
+    },
+    {
+      "operator": "=",
+      "description": "Assignment"
+    },
+    {
+      "operator": "==",
+      "description": "Equality"
+    },
+    {
+      "operator": "!=",
+      "description": "Inequality"
+    },
+    {
+      "operator": "<",
+      "description": "Less than"
+    },
+    {
+      "operator": ">",
+      "description": "Greater than"
+    },
+    {
+      "operator": "<=",
+      "description": "Less than or equal"
+    },
+    {
+      "operator": ">=",
+      "description": "Greater than or equal"
+    },
+    {
+      "operator": "&&",
+      "description": "Logical AND"
+    },
+    {
+      "operator": "||",
+      "description": "Logical OR"
+    },
+    {
+      "operator": "!",
+      "description": "Logical NOT"
+    },
+    {
+      "operator": "?:",
+      "description": "Ternary operator"
+    }
+  ],
+  "special_variables": [
+    {
+      "name": "spl0",
+      "description": "Left channel audio sample",
+      "type": "number",
+      "scope": "@sample"
+    },
+    {
+      "name": "spl1",
+      "description": "Right channel audio sample",
+      "type": "number",
+      "scope": "@sample"
+    },
+    {
+      "name": "slider1",
+      "description": "First slider parameter",
+      "type": "number"
+    },
+    {
+      "name": "param[0]",
+      "description": "First parameter array access",
+      "type": "number"
+    },
+    {
+      "name": "srate",
+      "description": "Sample rate",
+      "type": "number"
+    },
+    {
+      "name": "tempo",
+      "description": "Current tempo",
+      "type": "number"
+    },
+    {
+      "name": "play_state",
+      "description": "Playback state",
+      "type": "number"
+    },
+    {
+      "name": "gfx_w",
+      "description": "Graphics width",
+      "type": "number",
+      "scope": "@gfx"
+    },
+    {
+      "name": "gfx_h",
+      "description": "Graphics height",
+      "type": "number",
+      "scope": "@gfx"
+    },
+    {
+      "name": "mouse_x",
+      "description": "Mouse X position",
+      "type": "number",
+      "scope": "@gfx"
+    },
+    {
+      "name": "mouse_y",
+      "description": "Mouse Y position",
+      "type": "number",
+      "scope": "@gfx"
+    }
+  ],
+  "sections": [
+    {
+      "name": "^ operator",
+      "id": "op_pow",
+      "description": "base ^ exponent"
+    },
+    {
+      "name": "pow()",
+      "id": "func_pow",
+      "description": "pow(x,y)"
+    },
+    {
+      "name": "while()",
+      "id": "while",
+      "description": "while(code)"
+    },
+    {
+      "name": "gfx_r",
+      "id": "gfx_r",
+      "description": ""
+    },
+    {
+      "name": "gfx_g",
+      "id": "gfx_g",
+      "description": ""
+    },
+    {
+      "name": "gfx_b",
+      "id": "gfx_b",
+      "description": ""
+    },
+    {
+      "name": "gfx_a",
+      "id": "gfx_a",
+      "description": "gfx_r, gfx_g, gfx_b, gfx_a"
+    },
+    {
+      "name": "gfx_mode",
+      "id": "gfx_mode",
+      "description": "gfx_mode"
+    },
+    {
+      "name": "gfx_dest",
+      "id": "gfx_dest",
+      "description": "gfx_dest"
+    },
+    {
+      "name": "gfx_x",
+      "id": "gfx_x",
+      "description": ""
+    },
+    {
+      "name": "gfx_y",
+      "id": "gfx_y",
+      "description": "gfx_x, gfx_y"
+    },
+    {
+      "name": "gfx_texth",
+      "id": "gfx_texth",
+      "description": "gfx_texth"
+    },
+    {
+      "name": "gfx_setfont",
+      "id": "gfx_setfont",
+      "description": "gfx_setfont(idx[,fontface, sz, flags])"
+    },
+    {
+      "name": "gfx_blit()",
+      "id": "gfx_blit",
+      "description": "gfx_blit(source, scale, rotation)"
+    },
+    {
+      "name": "@serialize",
+      "id": "sec_serialize",
+      "description": "@serialize"
+    },
+    {
+      "name": "@gfx",
+      "id": "sec_gfx",
+      "description": "@gfx"
+    },
+    {
+      "name": "@init sections",
+      "id": "sec_init",
+      "description": "@init"
+    },
+    {
+      "name": "@sample, etc), and the importing file does not implement those sections, the imported version of those sections will be used.Note that files that are designed for import only (such as function libraries) should ideally be named xyz.jsfx-inc, as these will be ignored in the user FX list in REAPER.",
+      "id": "sec_sample",
+      "description": "@sample"
+    },
+    {
+      "name": "@init",
+      "id": "sec_init",
+      "description": "@init"
+    },
+    {
+      "name": "slider",
+      "id": "def_slider",
+      "description": "slider"
+    },
+    {
+      "name": "sliderX:",
+      "id": "def_slider",
+      "description": "slider"
+    },
+    {
+      "name": "midisyx",
+      "id": "midisyx",
+      "description": "midisyx(offset,msgptr,len)"
+    },
+    {
+      "name": "midirecv_buf()",
+      "id": "midirecv_buf",
+      "description": "midirecv_buf(offset,buf, maxlen)"
+    },
+    {
+      "name": "midisend_buf()",
+      "id": "midisend_buf",
+      "description": "midisend_buf(offset,buf, len)"
+    },
+    {
+      "name": "srate",
+      "id": "srate",
+      "description": "srate"
+    }
+  ],
+  "scraped_at": "2026-01-07T12:22:17.971027",
+  "pages_scraped": [
+    "https://www.reaper.fm/sdk/js/advfunc.php",
+    "https://www.reaper.fm/sdk/js/basiccode.php",
+    "https://www.reaper.fm/sdk/js/file.php",
+    "https://www.reaper.fm/sdk/js/gfx.php",
+    "https://www.reaper.fm/sdk/js/js.php",
+    "https://www.reaper.fm/sdk/js/midi.php",
+    "https://www.reaper.fm/sdk/js/preproc.php",
+    "https://www.reaper.fm/sdk/js/strings.php",
+    "https://www.reaper.fm/sdk/js/userfunc.php",
+    "https://www.reaper.fm/sdk/js/vars.php"
+  ]
+}

@@ -1,0 +1,45 @@
+{%- if function_name.strip() %}
+--- {{ function_name }}. Wraps {{ reascript_name }}.
+{%- else %}
+{%- endif %}
+{%- if docs -%}
+{%- for line in docs.split('\n') if line.strip() %}
+-- {{ line }}
+{%- endfor %}
+{%- endif -%}
+{%- if params -%}
+{%- for param in params %}
+{%- if param.is_optional -%}
+{%-  if param.description %}
+-- @param {{ param.name }} {{ param.reawrap_lua_type }} Optional. {{ param.description }}
+{%-  else %}
+-- @param {{ param.name }} {{ param.reawrap_lua_type }} Optional
+{%-  endif -%}
+{%-  else -%}
+{%-  if param.description %}
+-- @param {{ param.name }} {{ param.reawrap_lua_type }}. {{ param.description }}
+{%-  else %}
+-- @param {{ param.name }} {{ param.reawrap_lua_type }}
+{%-  endif -%}
+{%-  endif -%}
+{%- endfor -%}
+{%- endif -%}
+{% if return_values %}
+{%- for val in return_values %}
+{%- if val.is_reawrap_type %}
+    {%- if val.name %}
+-- @return {{ val.name }} {{ val.reawrap_type }} {{ val.reawrap_lua_type }}
+    {%- else %}
+-- @return {{ val.reawrap_type }} {{ val.reawrap_lua_type }}
+    {%- endif %}
+{%- else %}
+    {%- if val.name %}
+-- @return {{ val.name }} {{ val.reawrap_lua_type }}
+    {%- else %}
+-- @return {{ val.reawrap_lua_type }}
+    {%- endif %}
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+{{ function_signature }}
+    {{ function_body }}

@@ -1,0 +1,11 @@
+{%- if name %}
+--- Constants for {{ reawrap_name }}.
+{%- endif -%}
+{%- for constant in constants %}
+-- @field {{ constant.name }} {{ constant.lua_type }}: {{ constant.description }}
+{%- endfor %}
+{{ name }} = {
+    {%- for constant in constants %}
+    {{ constant.name }} = "{{ constant.name }}",
+    {%- endfor %}
+}

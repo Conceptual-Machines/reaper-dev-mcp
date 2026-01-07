@@ -1,0 +1,64 @@
+-- @description {{ description }}.
+-- @author NomadMonad
+-- @license MIT
+
+local r = reaper
+local helpers = require('helpers')
+
+{% if class_name %}
+local {{ class_name }} = {}
+{% endif %}
+
+
+--- Create new {{ class_name }} instance.
+{%- if constructor_args %}
+{%- for arg in constructor_args %}
+{%- if arg.is_optional %}
+-- @param {{ arg.name }} {{ arg.rewrap_type }} Optional. {{ arg.description }}
+{%- else %}
+-- @param {{ arg.name }} {{ arg.rewrap_type }}. {{ arg.description }}
+{%- endif -%}
+{% endfor -%}
+{% endif %}
+-- @return {{ class_name }} table.
+function {{ class_name }}:new({{ constructor_args | map(attribute='name') |join(", ") }})
+    {%  if constructor_args -%}
+    {%  if has_optional_args -%}
+    {% for arg in constructor_args %}
+    {%- if arg.is_optional -%}
+    local {{ arg.name }} = {{ arg.name }} or {{ arg.default_value }}
+    {%- endif -%}
+    {% endfor %}
+    {% include "local_obj.jinja2" with context %}
+    {% else -%}
+    {% include "local_obj.jinja2" with context %}
+    {% endif -%}
+    {% else -%}
+    local obj = {}
+    {% endif -%}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+-- @section ReaWrap Custom Methods
+
+--- Log messages with the {{ class_name }} logger.
+-- @param ... (varargs) Messages to log.
+function {{ class_name }}:log(...)
+    local logger = helpers.log_func('{{ class_name }}')
+    logger(...)
+    return nil
+end
+
+
+-- @section ReaScript API Methods
+
+
+{% for method in methods %}
+    {{ method }}
+{%- endfor -%}
+
+{% if class_name %}
+return {{ class_name }}
+{% endif -%}

@@ -1,0 +1,18 @@
+{% for param, default in optional_params.items() -%}
+    local {{ param }} = {{ param }} or {{ default }}
+    {% endfor -%}
+    {% if return_values and 'ret_val' in return_values -%}
+    local {{ return_values | join(", ") }} = {{ function_call }}
+    if ret_val then
+        return {{ return_values | reject('equalto', 'ret_val') | join(", ") }}
+    else
+        return nil
+    end
+    {%- elif return_reawrap_class -%}
+    local {{ return_reawrap_class }} = require('{{ return_reawrap_class_module }}')
+    local result = {{ function_call }}
+    return {{ return_reawrap_class }}:new(result)
+    {%- else -%}
+    return {{ function_call }}
+{%- endif %}
+end

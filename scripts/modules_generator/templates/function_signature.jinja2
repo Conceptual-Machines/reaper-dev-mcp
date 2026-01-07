@@ -1,0 +1,7 @@
+function {{ reawrap_class }}:{{ reawrap_name }}(
+{%- if reawrap_params -%}
+{%- for param in reawrap_params -%}
+    {{ param.name }}{{ ", " if not loop.last }}
+{%- endfor -%}
+{%- endif -%}
+)

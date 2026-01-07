@@ -1,0 +1,7 @@
+r.{{ reaper_name }}(
+{%- if reaper_args -%}
+    {%- for reaper_arg in reaper_args -%}
+        {{ reaper_arg }}{{ ", " if not loop.last }}
+    {%- endfor -%}
+{%- endif -%}
+)

@@ -1,0 +1,12 @@
+local obj = {
+        {%- if pointer_type %}
+        pointer_type = "{{ pointer_type }}",
+        {%- endif -%}
+        {%- for arg in constructor_args %}
+        {%- if arg.is_pointer %}
+        pointer = {{ arg.name }}{{ ', ' if not loop.last }}
+        {%- else %}
+        {{ arg.name }} = {{ arg.name }}{{ ', ' if not loop.last }}
+        {%- endif -%}
+        {%- endfor %}
+    }
